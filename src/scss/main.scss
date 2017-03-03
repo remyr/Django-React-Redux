@@ -1,38 +1,29 @@
-// @import "flatly/flatly";
-/*
-$input-margin: 0 0 0 0;
-@import "materialize/materialize";
-
-button.btn-login {
-  margin-top: 20px;
-  width: 100%;
-}
-
-.input-field {
-  margin: 15px 0;
-}
-
-span.login-error {
-  font-size: .8em;
-  transform: translateY(-20px);
-}
-nav {
-  background-color: #006064;
-}*/
-
-/*#login-form {
-  margin-top: 80px;
-}*/
-
 h1.form {
   margin-bottom: 50px;
 }
+
+.user-form {
+  margin-top: 50px;
+}
+
 .panel-form {
   padding-bottom: 40px;
-  margin-top: 50px;
+  margin-top: 10px;
   border-top: 2px solid #2196f3;
 }
 
 .btn-form {
   margin-top: 20px;
+}
+
+.flashbag-message {
+  border-radius: 3px;
+
+  h6 {
+    color: #ffffff;
+    text-align: center;
+  }
+  &.flashbag-success {
+    background-color: #4caf50;
+  }
 }

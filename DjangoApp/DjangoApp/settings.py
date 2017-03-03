@@ -130,6 +130,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
+    'NON_FIELD_ERRORS_KEY': '_error'
 }
 JWT_AUTH = {
     'JWT_VERIFY_EXPIRATION': True,

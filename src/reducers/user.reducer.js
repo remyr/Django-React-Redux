@@ -19,7 +19,7 @@ export default function(state=INITIAL_STATE, action) {
 
 import { actions } from '../actions/users.actions'
 
-const INITIAL_STATE = {isAuth: false, errors: null, loading: false, user: {} };
+const INITIAL_STATE = {isAuth: false, errors: null, loading: false, user: {}, registration: {} };
 
 export default function (state = INITIAL_STATE, action) {
 
@@ -32,8 +32,10 @@ export default function (state = INITIAL_STATE, action) {
             return {...state, isAuth: false, errors: action.payload, loading: false, user: {}};
         case actions.LOGOUT_USER:
             return {...state, isAuth: false, errors: null, loading: false, user: {}};
-        case actions.RESET_ERRORS:
-            return {...state, errors: null };
+        case actions.RESET_REGISTRATION_MESSAGES:
+            return {...state, registration: {} };
+        case actions.REGISTER_SUCCESS:
+            return {...state, registration: {completed: true, username: action.payload} };
         default:
             return state
     }

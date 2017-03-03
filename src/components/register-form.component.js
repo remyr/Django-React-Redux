@@ -25,13 +25,15 @@ let RegisterForm = (props) => {
     const { handleSubmit, invalid, error, submitting, router } = props;
     return(
         <form onSubmit={handleSubmit}>
-            {error && <span>{error}</span>}
+            <div className="col-md-12">
+                {error && <p className="text-danger">{error}</p>}
+            </div>
             <Field name="username" type="text" component={renderField} label="Username" />
             <Field name="email" type="text" component={renderField} label="Email" />
             <Field name="password" type="password" component={renderField} label="Password" />
             <Field name="confirmPassword" type="password" component={renderField} label="Confirm password" />
                 <div className="col-md-6">
-                <button onClick={() => router.push('/login')} className="btn btn-primary btn-block btn-form" type="button">Sign in</button>
+                <button style={{backgroundColor: '#0d47a1'}} onClick={() => router.push('/login')} className="btn btn-primary btn-block btn-form" type="button">Sign in</button>
             </div>
             <div className="col-md-6">
                 <button disabled={invalid || submitting} className="btn btn-primary btn-block btn-form" type="submit">Sign up</button>

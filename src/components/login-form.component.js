@@ -20,16 +20,16 @@ const renderField = ( { hasError, input, label, type, meta: { touched, error } }
 );
 
 let LoginForm = (props) => {
-    const { handleSubmit, invalid, errors, submitting, router } = props;
+    const { handleSubmit, invalid, error, submitting, router } = props;
     return(
         <form onSubmit={handleSubmit}>
             <div className="col-md-12">
-                {errors && <p className="text-danger">{errors}</p>}
+                {error && <p className="text-danger">{error}</p>}
             </div>
             <Field name="email" type="text" hasError="true" component={renderField} label="Email" />
             <Field name="password" type="password" component={renderField} label="Password" />
             <div className="col-md-6">
-                <button className="btn btn-primary btn-block btn-form" type="button" onClick={() => router.push('/register')}>Sign up</button>
+                <button style={{backgroundColor: '#0d47a1'}} className="btn btn-primary btn-block btn-form" type="button" onClick={() => router.push('/register')}>Sign up</button>
             </div>
             <div className="col-md-6">
                 <button disabled={invalid || submitting} className="btn btn-primary btn-block btn-form" type="submit">Sign in</button>

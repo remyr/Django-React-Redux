@@ -8,19 +8,27 @@ import LoginForm from '../components/login-form.component'
 
 class LoginContainer extends Component {
 
-    componentDidMount() {
-        this.props.resetErrors();
-    }
-
     handleSubmit = (credentials) => {
         this.props.login(credentials)
     };
 
+    componentWillUnmount() {
+        this.props.resetRegistrationMessages()
+    }
+
     render(){
+        let { registration } = this.props.user;
         return(
-            <div className="container">
+            <div className="container user-form">
                 <div className="row">
-                    <div className="col-md-6 col-md-offset-3" id="login-form">
+                    {registration.completed && (
+                        <div className="col-md-6 col-md-offset-3 flashbag-message flashbag-success">
+                            <h6>Registration completed, Welcome {registration.username}</h6>
+                        </div>
+                    )}
+                </div>
+                <div className="row">
+                    <div className="panel panel-default panel-form col-md-6 col-md-offset-3" id="login-form">
                         <div className="col-md-12 text-center">
                             <h1 className="form">Sign in</h1>
                         </div>
@@ -35,7 +43,7 @@ class LoginContainer extends Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         login: bindActionCreators(actions.login, dispatch),
-        resetErrors: bindActionCreators(actions.resetErrors, dispatch),
+        resetRegistrationMessages: bindActionCreators(actions.resetRegistrationMessages, dispatch),
     }
 };
 
