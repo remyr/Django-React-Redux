@@ -141,3 +141,4 @@ JWT_AUTH = {
 }
 
 AUTH_USER_MODEL = 'API.User'
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']

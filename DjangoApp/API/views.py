@@ -1,17 +1,17 @@
 from django.contrib.auth import get_user_model
 from rest_framework import generics
-from rest_framework.decorators import authentication_classes, permission_classes
+
 from .serializers import UserSerializer
 
 User = get_user_model()
 
 
-@authentication_classes([])
-@permission_classes([])
 class UserCreate(generics.CreateAPIView):
     """
     Create an user instance.
     """
+    permission_classes = ()
+    authentication_classes = ()
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
