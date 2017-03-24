@@ -96,6 +96,7 @@ export function resetRegistrationMessages() {
 
 export function logout() {
     return (dispatch) => {
+        localStorage.removeItem('token');
         dispatch(_logout());
         browserHistory.push('/login')
     }
