@@ -15,51 +15,22 @@ export const actions = {
     REGISTER_FAILURE: 'REGISTER_FAILURE'
 };
 
-class UserFunctions {
+const _loginStart = () => ({ type: actions.LOGIN_USER_START });
 
-    static loginStart() {
-        return { type: actions.LOGIN_USER_START }
-    }
+export const loginSuccess = (user) => ({ type: actions.LOGIN_USER_SUCCESS, payload: user });
 
-    static loginSuccess(user) {
-        return {
-            type: actions.LOGIN_USER_SUCCESS,
-            payload: user
-        }
-    }
+const _loginFailure = (errors) => ({ type: actions.LOGIN_USER_FAILURE, payload: errors });
 
-    static loginFailure(errors) {
-        return {
-            type: actions.LOGIN_USER_FAILURE,
-            payload: errors
-        }
-    }
+const _logout = () => ({ type: actions.LOGOUT_USER });
 
-    static logout() {
-        return {
-            type: actions.LOGOUT_USER
-        }
-    }
+const _resetRegistrationMessages = () => ({ type: actions.RESET_REGISTRATION_MESSAGES });
 
-    static resetRegistrationMessages() {
-        return { type: actions.RESET_REGISTRATION_MESSAGES }
-    }
+const _registerStart = () => ({ type: actions.REGISTER_START });
 
-    static registerStart() {
-        return { type: actions.REGISTER_START }
-    }
+const _registerSuccess = (username) => ({ type: actions.REGISTER_SUCCESS, payload: username });
 
-    static registerSuccess(username) {
-        return {
-            type: actions.REGISTER_SUCCESS,
-            payload: username
-        }
-    }
+const _registerFailure = () => ({ type: actions.REGISTER_FAILURE });
 
-    static registerFailure() {
-        return { type: actions.REGISTER_FAILURE }
-    }
-}
 
 export function formatFormErrors(errors) {
     let formError = {};
@@ -78,17 +49,18 @@ export function formatFormErrors(errors) {
 export function login(credentials) {
     return (dispatch) => {
 
-        dispatch(UserFunctions.loginStart());
+        dispatch(_loginStart());
         axios.post(`${config.apiUrl}/token`, credentials)
             .then(response => response.data)
             .then(data => {
-                dispatch(UserFunctions.loginSuccess(data.user));
+                dispatch(loginSuccess(data.user));
+                localStorage.setItem('token', data.token);
                 browserHistory.push('/');
                 dispatch(reset('login'));
             })
             .catch(errors => {
                 let {data} = errors.response;
-                dispatch(UserFunctions.loginFailure(data));
+                dispatch(_loginFailure(data));
                 dispatch(stopSubmit('login', formatFormErrors(data)))
             });
     }
@@ -102,15 +74,15 @@ export function register(credentials) {
             return;
         }
 
-        dispatch(UserFunctions.registerStart());
+        dispatch(_registerStart());
         axios.post(`${config.apiUrl}/register`, credentials)
             .then(response => {
-                dispatch(UserFunctions.registerSuccess(response.data.username));
+                dispatch(_registerSuccess(response.data.username));
                 dispatch(reset('register'));
                 browserHistory.push('/login')
             })
             .catch(errors => {
-                dispatch(UserFunctions.registerFailure());
+                dispatch(_registerFailure());
                 dispatch(stopSubmit('register', formatFormErrors(errors.response.data)))
             });
     }
@@ -118,13 +90,13 @@ export function register(credentials) {
 
 export function resetRegistrationMessages() {
     return (dispatch) => {
-        dispatch(UserFunctions.resetRegistrationMessages())
+        dispatch(_resetRegistrationMessages())
     }
 }
 
 export function logout() {
     return (dispatch) => {
-        dispatch(UserFunctions.logout());
+        dispatch(_logout());
         browserHistory.push('/login')
     }
 }

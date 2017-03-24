@@ -135,6 +135,7 @@ REST_FRAMEWORK = {
 JWT_AUTH = {
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'API.views.jwt_response_payload_handler',
+    'JWT_PAYLOAD_HANDLER': 'API.views.jwt_payload_handler',
     'JWT_ALLOW_REFRESH': True,
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1)
